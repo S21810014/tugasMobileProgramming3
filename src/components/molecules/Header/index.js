@@ -2,11 +2,12 @@ import React from 'react'
 import { View, Text, StyleSheet, Touchable, TouchableOpacity } from 'react-native'
 import { ArrowBack } from '../../../assets'
 
-const Header = ({title, canGoBack}) => {
+const Header = ({title, canGoBack, navigation}) => {
     return (
         <View style={styles.header}>
             {
-                canGoBack &&    <TouchableOpacity style={styles.arrow}>
+                canGoBack &&    <TouchableOpacity   style={styles.arrow}
+                                                    onPress={() => navigation.goBack()}>
                                     <ArrowBack />
                                 </TouchableOpacity>
             }
