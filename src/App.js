@@ -1,14 +1,13 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
 import { SignIn, SplashScreen } from './pages'
 
 const App = () => {
     return (
-        <View>
-            <Text>Timothy Merfry Tiwow</Text>
+        <>
+            <StatusBar translucent backgroundColor='transparent'/>
             <SplashScreen/>
-            <SignIn/>
-        </View>
+        </>
     )
 }
 
