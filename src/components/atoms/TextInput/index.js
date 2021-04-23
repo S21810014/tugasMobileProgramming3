@@ -5,21 +5,21 @@ import { TextInput as Input, StyleSheet} from 'react-native'
 
 const TextInput = ({placeholder, value, setValue, validation, filter, isPassword}) => {
     const [isValid, setIsValid] = useState('')
+    const [borderColor, setBorderColor] = useState('black')
 
     const onChangeHandler = ({nativeEvent: {text: e}}) => {
         if(validation == undefined) validation = e => ''
         if(filter == undefined) filter = e => e
         
         setIsValid(validation(e))
+        isValid ? setBorderColor('red') : setBorderColor('green')
         const filteredText = filter(e)
         setValue(filteredText)
     }
 
-    const textInputBorderColor = isValid ? {borderColor: 'red'} : {}
-
     const textInputStyles = {
         ...styles.inputField,
-        ...textInputBorderColor
+        borderColor: borderColor
     }
 
     return (
@@ -28,13 +28,14 @@ const TextInput = ({placeholder, value, setValue, validation, filter, isPassword
                 value={value}
                 onChange={onChangeHandler}
                 secureTextEntry={isPassword}
+                onFocus={e => isValid ? setBorderColor('red') : setBorderColor('green')}
+                onBlur={e => isValid ? setBorderColor('red') : setBorderColor('black')}
         />
     )
 }
 
 const styles = StyleSheet.create({
     inputField: {
-        borderColor: 'black',
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,
