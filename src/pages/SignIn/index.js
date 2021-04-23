@@ -3,7 +3,7 @@ import { View, Text, StatusBar, StyleSheet } from 'react-native'
 import { Header, LabeledInput } from '../../components/molecules'
 import { Button, Gap, TextInput } from '../../components/atoms'
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
     StatusBar.setBarStyle('dark-content')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -39,9 +39,15 @@ const SignIn = () => {
                 />
                 <Gap height={24}/>
                 <View style={{height: 112}}>
-                    <Button label="Sign In" bgColor='#02CF8E' />
+                    <Button     label="Sign In" 
+                                bgColor='#02CF8E' 
+                    />
                     <Gap height={12}/>
-                    <Button label="Create New Account" bgColor='#8D92A3' textColor='white'/>
+                    <Button     label="Create New Account" 
+                                bgColor='#8D92A3' 
+                                textColor='white'
+                                onPress={() => navigation.navigate("SignUp")}
+                    />
                 </View>
             </View>
         </View>
