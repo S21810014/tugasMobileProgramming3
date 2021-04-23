@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { Header } from '../../components/molecules'
 
-const HomeCashOnBank = () => {
+const HomeCashOnBank = ({navigation}) => {
     return (
         <View>
-            <Text>Cash on bank</Text>
+            <Header canGoBack title="Cash On Bank" navigation={navigation}/>
         </View>
     )
 }

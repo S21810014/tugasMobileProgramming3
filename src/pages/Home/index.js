@@ -3,6 +3,8 @@ import { View, Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { IconHome, IconHomeNormal, IconProfile, IconProfileNormal } from '../../assets'
+import { createStackNavigator } from '@react-navigation/stack'
+import { HomeCashOnBank, HomeCashOnHand, HomeMain, NotImplemented } from '..'
 
 const mapping = {
     IconHome: <IconHome/>,
@@ -12,16 +14,24 @@ const mapping = {
 }
 
 const Tab = createBottomTabNavigator()
+const HomeStack = createStackNavigator()
 
-const Tes1 = () => {
+const HomeStackNavigator = () => {
     return (
-        <View><Text>testing1</Text></View>
-    )
-}
-
-const Tes2 = () => {
-    return (
-        <View><Text>testing2</Text></View>
+        <HomeStack.Navigator>
+            <HomeStack.Screen 
+                name="HomeMain" 
+                component={HomeMain} 
+                options={{headerShown: false}}/>
+            <HomeStack.Screen 
+                name="HomeCashOnBank" 
+                component={HomeCashOnBank} 
+                options={{headerShown: false}}/>
+            <HomeStack.Screen
+                name="HomeCashOnHand" 
+                component={HomeCashOnHand} 
+                options={{headerShown: false}}/>
+        </HomeStack.Navigator>
     )
 }
 
@@ -47,8 +57,8 @@ const Home = () => {
                 }
             }}
         >
-            <Tab.Screen name="Home" component={Tes1}/>
-            <Tab.Screen name="Profile" component={Tes2}/>
+            <Tab.Screen name="Home" component={HomeStackNavigator}/>
+            <Tab.Screen name="Profile" component={NotImplemented}/>
         </Tab.Navigator>
     )
 }

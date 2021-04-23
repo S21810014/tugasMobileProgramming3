@@ -5,6 +5,7 @@ import Home from './Home'
 import HomeMain from './HomeMain'
 import HomeCashOnBank from './HomeCashOnBank'
 import HomeCashOnHand from './HomeCashOnHand'
+import NotImplemented from './NotImplemented'
 
 export {
     SplashScreen, 
@@ -13,5 +14,6 @@ export {
     Home,
     HomeMain, 
     HomeCashOnBank, 
-    HomeCashOnHand
+    HomeCashOnHand,
+    NotImplemented
 }
