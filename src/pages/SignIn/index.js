@@ -40,7 +40,8 @@ const SignIn = ({navigation}) => {
                 <Gap height={24}/>
                 <View style={{height: 112}}>
                     <Button     label="Sign In" 
-                                bgColor='#02CF8E' 
+                                bgColor='#02CF8E'
+                                onPress={() => navigation.replace("Home")}
                     />
                     <Gap height={12}/>
                     <Button     label="Create New Account" 
