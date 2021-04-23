@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
 
 const SignIn = () => {
+    StatusBar.setBarStyle('dark-content')
     return (
         <View>
             <Text>Ini adalah signIn</Text>
