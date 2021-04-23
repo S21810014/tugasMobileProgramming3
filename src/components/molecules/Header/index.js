@@ -5,11 +5,11 @@ import { ArrowBack } from '../../../assets'
 const Header = ({title, canGoBack}) => {
     return (
         <View style={styles.header}>
-            <TouchableOpacity style={styles.arrow}>
-                {
-                    canGoBack && <ArrowBack />
-                }
-            </TouchableOpacity>
+            {
+                canGoBack &&    <TouchableOpacity style={styles.arrow}>
+                                    <ArrowBack />
+                                </TouchableOpacity>
+            }
             <Text style={styles.text}>{title}</Text>
         </View>
     )

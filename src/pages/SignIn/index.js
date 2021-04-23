@@ -21,7 +21,7 @@ const SignIn = () => {
 
     return (
         <View style={styles.page}>
-            <Header canGoBack title="Sign In"/>
+            <Header title="Sign In"/>
             <Gap height={25}/>
             <View style={styles.signInCard}>
                 <LabeledInput   value={email}
