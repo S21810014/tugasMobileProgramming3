@@ -5,6 +5,7 @@ import IconHomeNormal from './IconHomeNormal.svg'
 import IconProfile from './IconProfile.svg'
 import IconProfileNormal from './IconProfileNormal.svg'
 import IconOrderNormal from './IconOrderNormal.svg'
+import CancelButton from './cancel_24px_outlined.svg'
 
 export {
     Logo, 
@@ -14,4 +15,5 @@ export {
     IconHomeNormal,
     IconProfileNormal,
     IconOrderNormal,
+    CancelButton
 }

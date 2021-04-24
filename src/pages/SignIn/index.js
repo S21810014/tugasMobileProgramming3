@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text, StatusBar, StyleSheet } from 'react-native'
 import { Header, LabeledInput } from '../../components/molecules'
 import { Button, Gap, TextInput } from '../../components/atoms'
+import firestore from '@react-native-firebase/firestore'
+import FlashCardContext from '../../contexts/flashCardContext'
 
 const SignIn = ({navigation}) => {
     StatusBar.setBarStyle('dark-content')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const flashCard = useContext(FlashCardContext)
 
     //https://www.w3resource.com/javascript/form/email-validation.php
     const emailValidationHandler = e => {
@@ -17,6 +20,24 @@ const SignIn = ({navigation}) => {
                 return 'Invalid email'
         else
             return 'Email must be filled'
+    }
+
+    const loginHandler = () => {
+        firestore()
+            .collection('users')
+            .where('email', '==', email)
+            .where('password', '==', password)
+            .get()
+            .then(querySnapshot => {
+                if(querySnapshot.docs.length > 0) {
+                    navigation.replace("Home")
+                } else {
+                    flashCard.setData({
+                        type: 'error',
+                        message: 'Email or Password Incorrect'
+                    })
+                }
+            })
     }
 
     return (
@@ -41,7 +62,7 @@ const SignIn = ({navigation}) => {
                 <View style={{height: 112}}>
                     <Button     label="Sign In" 
                                 bgColor='#02CF8E'
-                                onPress={() => navigation.replace("Home")}
+                                onPress={loginHandler}
                     />
                     <Gap height={12}/>
                     <Button     label="Create New Account" 

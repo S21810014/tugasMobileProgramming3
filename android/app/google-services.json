@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "48060863270",
+    "project_id": "mobileprogrammingexercise",
+    "storage_bucket": "mobileprogrammingexercise.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48060863270:android:a5ad2d4f76fa96475aa7e7",
+        "android_client_info": {
+          "package_name": "com.moneytrackertiwow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48060863270-3g8vp4rutbkloqai9vupre3c7ksd5ad5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moneytrackertiwow",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "48060863270-1ub288k8gruqmkfquaeeu4gg79m1smd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0U1-wa35Z7t0ZXCxIQraj4lk9zJDYogI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48060863270-1ub288k8gruqmkfquaeeu4gg79m1smd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
