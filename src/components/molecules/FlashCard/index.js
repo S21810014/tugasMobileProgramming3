@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { CancelButton } from '../../../assets';
 import { Button } from '../../atoms';
 

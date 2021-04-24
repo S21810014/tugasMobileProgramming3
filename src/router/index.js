@@ -12,7 +12,6 @@ const Router = () => {
                 component={SplashScreen}
                 options={{headerShown: false}}
             />
-
             <Stack.Screen 
                 name="SignIn" 
                 component={SignIn}

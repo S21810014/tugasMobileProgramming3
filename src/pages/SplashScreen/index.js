@@ -6,7 +6,6 @@ const SplashScreen = ({navigation}) => {
     StatusBar.setBarStyle('light-content')
     
     useEffect(() => {
-        //setTimeout(() => navigation.navigate("SignIn"), 3000)
         setTimeout(() => navigation.replace("SignIn"), 3000)
     }, [])
 

@@ -1,7 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { NavigationContainer } from '@react-navigation/native'
 import { IconHome, IconHomeNormal, IconProfile, IconProfileNormal } from '../../assets'
 import { createStackNavigator } from '@react-navigation/stack'
 import { HomeCashOnBank, HomeCashOnHand, HomeMain, NotImplemented } from '..'

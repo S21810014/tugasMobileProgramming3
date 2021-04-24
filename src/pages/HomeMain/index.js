@@ -5,7 +5,6 @@ import UserBalanceContext from '../../contexts/userBalanceContext'
 
 const HomeMain = ({navigation}) => {
     const userBalanceData = useContext(UserBalanceContext)
-
     const data = userBalanceData.data
     
     return (
