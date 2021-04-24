@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { Button, Gap } from '../../components/atoms'
 import UserBalanceContext from '../../contexts/userBalanceContext'
 
@@ -7,7 +7,7 @@ const HomeMain = ({navigation}) => {
     const userBalanceData = useContext(UserBalanceContext)
 
     const data = userBalanceData.data
-
+    
     return (
         <View style={styles.page}>
             <View style={styles.topMostHeader}>
@@ -16,7 +16,7 @@ const HomeMain = ({navigation}) => {
                     <Text style={[styles.font, styles.greyText]}>Track your money</Text>
                 </View>
                 <View style={styles.rightProfilePic}>
-                    {/* Put image here */}
+                    <Image source={{uri: data.profilePic}} style={{width: '100%', height: '100%'}}/>
                 </View>
             </View>
             <Gap height={20}/>
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     rightProfilePic: {
+        overflow: 'hidden',
         width: 60,
         height: 60,
         borderRadius: 12,

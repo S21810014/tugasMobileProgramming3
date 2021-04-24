@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image } from 'react-native'
 import { Button, Gap } from '../../components/atoms'
 import { Header, LabeledInput } from '../../components/molecules'
 import firestore from '@react-native-firebase/firestore'
 import FlashCardContext from '../../contexts/flashCardContext'
+import { launchImageLibrary } from 'react-native-image-picker'
 
 const SignUp = ({navigation}) => {
     StatusBar.setBarStyle('dark-content')
@@ -11,6 +12,7 @@ const SignUp = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const flashCard = useContext(FlashCardContext)
+    const [imageB64, setImageB64] = useState('')
 
     //https://www.w3resource.com/javascript/form/email-validation.php
     const emailValidationHandler = e => {
@@ -78,18 +80,49 @@ const SignUp = ({navigation}) => {
             })
     }
 
+    const addPhotoHandler = () => {
+        launchImageLibrary({
+            mediaType: 'photo',
+            maxHeight: 128,
+            maxWidth: 128,
+            includeBase64: true
+        }, ({didCancel, errorMessage, base64}) => {
+            if(didCancel) {
+                console.log("User Cancelled image picking")
+                return
+            }
+
+            if(errorMessage) {
+                console.log("IMAGE PICKER ERROR : ", errorMessage)
+                return
+            }
+
+            setImageB64(base64)
+        })
+    }
+
     return (
         <View style={styles.page}>
             <Header canGoBack title="Sign Up" navigation={navigation}/>
             <Gap height={25}/>
             <View style={styles.signUpCard}>
-                <TouchableOpacity style={styles.addPhotoContainer}>
-                    <View style={styles.outerCircle}>
-                        <View style={styles.innerCircle}>
-                            <Text style={styles.innerCircleText}> Add </Text>
-                            <Text style={styles.innerCircleText}> Photo </Text>
+                <TouchableOpacity style={styles.addPhotoContainer} onPress={addPhotoHandler}>
+                    {
+                        imageB64.length > 0 ?
+                        <Image  source={{uri: 'data:image/jpeg;base64,' + imageB64}} 
+                                style={{
+                                    width: 80, 
+                                    height: 80,
+                                    borderRadius: 999
+                                }}/>
+                        :
+                        <View style={styles.outerCircle}>
+                            <View style={styles.innerCircle}>
+                                <Text style={styles.innerCircleText}> Add </Text>
+                                <Text style={styles.innerCircleText}> Photo </Text>
+                            </View>
                         </View>
-                    </View>
+                    }
                 </TouchableOpacity>
                 <LabeledInput   value={fullName}
                                 setValue={setFullName}

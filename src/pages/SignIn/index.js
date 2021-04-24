@@ -47,6 +47,7 @@ const SignIn = ({navigation}) => {
                                 cashOnHand: userData.cashOnHand,
                                 cashOnBank: userData.cashOnBank,
                                 fullName: userData.fullName,
+                                profilePic: userData.profilePic,
                                 transactions: e.docs.map(el => el.data())
                             }))
                         })
