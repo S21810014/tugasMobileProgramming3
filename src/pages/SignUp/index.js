@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
 import { Button, Gap } from '../../components/atoms'
 import { Header, LabeledInput } from '../../components/molecules'
+import firestore from '@react-native-firebase/firestore'
+import FlashCardContext from '../../contexts/flashCardContext'
 
 const SignUp = ({navigation}) => {
     StatusBar.setBarStyle('dark-content')
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const flashCard = useContext(FlashCardContext)
 
     //https://www.w3resource.com/javascript/form/email-validation.php
     const emailValidationHandler = e => {
@@ -18,6 +21,61 @@ const SignUp = ({navigation}) => {
                 return 'Invalid email'
         else
             return 'Email must be filled'
+    }
+
+    const RegisterButtonHandler = () => {
+        if(fullName.length < 1) {
+            flashCard.setData({
+                type: 'error',
+                message: 'Please enter your full name'
+            })
+            return;
+        }
+
+        const emailValidation = emailValidationHandler(email)
+
+        if(emailValidation.length > 0) {
+            flashCard.setData({
+                type: 'error',
+                message: emailValidation
+            })
+            return;
+        }
+
+        if(password.length < 1) {
+            flashCard.setData({
+                type: 'error',
+                message: 'Please enter a password'
+            })
+            return;
+        }
+
+        firestore()
+            .collection('users')
+            .where('email', '==', email)
+            .get()
+            .then(querySnapshot => {
+                if(querySnapshot.docs.length > 0) {
+                    flashCard.setData({
+                        type: 'error',
+                        message: 'An Account already registered with that email'
+                    })
+                } else {
+                    firestore()
+                        .collection('users')
+                        .add({
+                            fullName: fullName,
+                            email: email,
+                            password: password,
+                        }).then(() => {
+                            flashCard.setData({
+                                type: 'success',
+                                message: 'Account successfully registered'
+                            })
+                            navigation.replace("SignIn")
+                        })
+                }
+            })
     }
 
     return (
@@ -50,6 +108,7 @@ const SignUp = ({navigation}) => {
                 <LabeledInput   value={password}
                                 setValue={setPassword}
                                 placeholder="Type your password"
+                                validation={e => e.length > 0 ? '' : 'Empty Input'}
                                 label="Password"
                                 isPassword
                 />
@@ -57,7 +116,7 @@ const SignUp = ({navigation}) => {
                 <View style={{height: 50}}>
                     <Button     label="Continue" 
                                 bgColor='#02CF8E'
-                                onPress={() => navigation.navigate("SignIn")}
+                                onPress={RegisterButtonHandler}
                     />
                 </View>
             </View>

@@ -4,12 +4,14 @@ import { Header, LabeledInput } from '../../components/molecules'
 import { Button, Gap, TextInput } from '../../components/atoms'
 import firestore from '@react-native-firebase/firestore'
 import FlashCardContext from '../../contexts/flashCardContext'
+import UserBalanceContext from '../../contexts/userBalanceContext'
 
 const SignIn = ({navigation}) => {
     StatusBar.setBarStyle('dark-content')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const flashCard = useContext(FlashCardContext)
+    const userAndBalance = useContext(UserBalanceContext)
 
     //https://www.w3resource.com/javascript/form/email-validation.php
     const emailValidationHandler = e => {
@@ -30,6 +32,25 @@ const SignIn = ({navigation}) => {
             .get()
             .then(querySnapshot => {
                 if(querySnapshot.docs.length > 0) {
+
+                    const userID = querySnapshot.docs[0].ref //gets the userID from firebase
+                    const userData = querySnapshot.docs[0].data()
+
+                    firestore()
+                        .collection('transactions')
+                        .where('userId', '==', userID)
+                        .get()
+                        .then(e => {
+                            userAndBalance.setData(prevState => ({
+                                ...prevState,
+                                userID: userID,
+                                cashOnHand: userData.cashOnHand,
+                                cashOnBank: userData.cashOnBank,
+                                fullName: userData.fullName,
+                                transactions: e.docs.map(el => el.data())
+                            }))
+                        })
+                        
                     navigation.replace("Home")
                 } else {
                     flashCard.setData({

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button, Gap } from '../../components/atoms'
-import { Header } from '../../components/molecules'
+import UserBalanceContext from '../../contexts/userBalanceContext'
 
 const HomeMain = ({navigation}) => {
+    const userBalanceData = useContext(UserBalanceContext)
+
+    const data = userBalanceData.data
+
     return (
         <View style={styles.page}>
             <View style={styles.topMostHeader}>
@@ -18,16 +22,16 @@ const HomeMain = ({navigation}) => {
             <Gap height={20}/>
             <View style={styles.card}>
                 <Text style={[styles.font]}>Your Balance</Text>
-                <Text style={[styles.fontSemiBold, styles.balanceNominal]}>Rp. 99.999.999</Text>
+                <Text style={[styles.fontSemiBold, styles.balanceNominal]}>Rp. {data.cashOnHand + data.cashOnBank}</Text>
                 <View style={styles.horizontalLine}/>
                 <Gap height={20}/>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={[styles.fontRegular, styles.leftHandText]}>Cash on Hand</Text>
-                    <Text style={[styles.fontSemiBold]}>Rp. 99.999.999</Text>
+                    <Text style={[styles.fontSemiBold]}>Rp. {data.cashOnHand}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={[styles.fontRegular, styles.leftHandText]}>Cash on Bank</Text>
-                    <Text style={[styles.fontSemiBold]}>Rp. 99.999.999</Text>
+                    <Text style={[styles.fontSemiBold]}>Rp. {data.cashOnBank}</Text>
                 </View>
             </View>
             <Gap height={20}/>

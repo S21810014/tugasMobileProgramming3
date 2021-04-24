@@ -1,30 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet, ScrollView} from 'react-native'
 import { Gap, Button, Card } from '../../components/atoms'
 import { Header, LabeledInput } from '../../components/molecules'
 import numeral from 'numeral'
+import UserBalanceContext from '../../contexts/userBalanceContext'
 
 const HomeCashOnBank = ({navigation}) => {
-    const testData = [
-        {
-            date: '17 April 2020',
-            desc: 'Water, Food',
-            nominal: 300000,
-            type: 'withdraw'
-        },
-        {
-            date: '18 April 2020',
-            desc: 'Office supplies',
-            nominal: 300000,
-            type: 'withdraw'
-        },
-        {
-            date: '19 April 2020',
-            desc: 'Top Up',
-            nominal: 300000,
-            type: 'store'
-        },
-    ]
+    const userBalanceData = useContext(UserBalanceContext)
+
+    const data = userBalanceData.data
+
     return (
         <View style={styles.page}>
             <Header canGoBack title="Cash On Bank" navigation={navigation}/>
@@ -34,7 +19,7 @@ const HomeCashOnBank = ({navigation}) => {
                 <View style={[styles.card, {flex: 1.75}]}>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={[styles.fontRegular, {marginRight: 10}]}>Balance:</Text>
-                        <Text style={[styles.fontSemiBold]}>Rp. 99.999.999</Text>
+                        <Text style={[styles.fontSemiBold]}>Rp. {data.cashOnBank}</Text>
                     </View>
                     <Gap height={8}/>
                     <LabeledInput label="Description" placeholder="Add the description"/>
@@ -50,19 +35,19 @@ const HomeCashOnBank = ({navigation}) => {
                 <View style={styles.card}>
                     <Text style={[styles.fontSemiBold, {fontSize: 16}]}>Last 3 Transactions</Text>
                     {
-                        testData.map((el, idx) =>
+                        data.transactions.map((el, idx) =>
                             <Card key={idx} style={styles.cardStyle}>
                                 <View style={{flex: 1}}>
-                                    <Text style={[styles.fontRegular, styles.greyFont]}>{el.date}</Text>
+                                    <Text style={[styles.fontRegular, styles.greyFont]}>{el.date.toDate().toDateString()}</Text>
                                     <Text style={styles.font}>{el.desc}</Text>
                                 </View>
                                 <Text style={[
                                     styles.fontSemiBold,
                                     {
-                                        color: el.type === "withdraw" ? 'red' : 'green'
+                                        color: el.amount > 0 ? 'green' : 'red'
                                     }
                                 ]}>
-                                    {`${el.type === "withdraw" ? '-' : '+'}Rp. ${numeral(el.nominal).format('0,0').replace(',', '.')}`}
+                                    {`${el.amount > 0 ? '+' : '-'}Rp. ${numeral(Math.abs(el.amount)).format('0,0').replace(',', '.')}`}
                                 </Text>
                             </Card>
                         )
